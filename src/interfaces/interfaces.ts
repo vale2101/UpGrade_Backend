@@ -9,6 +9,7 @@ export interface userInterface {
   fecha_registro?: string;
 }
 export interface direccionInterface {
+  id_user?: number;
   id_direccion?: number;
   pais: string;
   departamento: string;
@@ -22,7 +23,6 @@ export interface trabajadorInterface {
   correo: string;
   telefono: string;
   contrasena: string;
-  producto: string;
 }
 export interface fichaInterface {
   id_ficha?: number;
@@ -33,4 +33,42 @@ export interface fichaInterface {
   sistemaO: string;
   garantia: string;
   estado: string;
+}
+export interface productoInterface {
+  id_producto?: number;
+  nombre: string;
+  precio: number;
+  categoria: string;
+  stock: number;
+  tipo: "Nuevo" | "SemiNuevo" | "Reacondicionado";
+  color: string;
+  capacidad: string;
+  id_ficha: number;
+  foto: string;        
+  foto2?: string;      
+  foto3?: string;      
+  ficha?: fichaInterface; // opcional: para incluir datos de la ficha asociada
+}
+export interface PedidoProducto {
+  id_producto: number;
+  cantidad: number;
+  precio: number;
+}
+
+export interface PedidoInterface {
+  id_pedido?: number;        
+  id_user: number;           
+  id_direccion: number;      
+  fecha?: string;           
+  estado?: 'Pendiente' | 'Pagado' | 'Enviado' | 'Entregado' | 'Cancelado';
+  productos: PedidoProducto[];
+  total?: number;            
+}
+export interface administradorInterface {
+  id_administrador?: number;
+  nombre: string;
+  apellido: string;
+  correo: string;
+  telefono: string;
+  contrasena: string;
 }

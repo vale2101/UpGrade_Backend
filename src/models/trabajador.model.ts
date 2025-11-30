@@ -36,15 +36,14 @@ export async function createTrabajador_post(trabajador: trabajadorInterface): Pr
   try {
     await db.connect();
     const sql = `INSERT INTO trabajador 
-      (nombre, apellido, correo, contrasena, telefono, producto) 
-      VALUES (?, ?, ?, ?, ?, ?)`;
+      (nombre, apellido, correo, contrasena, telefono) 
+      VALUES (?, ?, ?, ?, ?)`;
     const response: any = await db.query(sql, [
       trabajador.nombre,
       trabajador.apellido,
       trabajador.correo,
       trabajador.contrasena,
       trabajador.telefono || null,
-      trabajador.producto,
     ]);
     db.close();
     return response.affectedRows > 0;
@@ -61,7 +60,7 @@ export async function updateTrabajador_put(trabajador: trabajadorInterface): Pro
 
     await db.connect();
     const sql = `UPDATE trabajador 
-      SET nombre = ?, apellido = ?, correo = ?, contrasena = ?, telefono = ?, producto = ? 
+      SET nombre = ?, apellido = ?, correo = ?, contrasena = ?, telefono = ? 
       WHERE id_trabajador = ?`;
     const response: any = await db.query(sql, [
       trabajador.nombre,
@@ -69,7 +68,6 @@ export async function updateTrabajador_put(trabajador: trabajadorInterface): Pro
       trabajador.correo,
       trabajador.contrasena,
       trabajador.telefono || null,
-      trabajador.producto,
       trabajador.id_trabajador,
     ]);
     db.close();
@@ -80,7 +78,6 @@ export async function updateTrabajador_put(trabajador: trabajadorInterface): Pro
   }
 }
 
-// 🔹 Eliminar trabajador (DELETE físico)
 export async function deleteTrabajador_delete(id_trabajador: number): Promise<boolean> {
   try {
     await db.connect();

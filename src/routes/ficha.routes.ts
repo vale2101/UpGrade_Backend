@@ -5,6 +5,7 @@ import {
   createFicha,
   updateFicha,
   deleteFicha,
+  getFichaByProductoId, 
 } from "../controller/ficha.controller";
 import {
   createFichaSchema,
@@ -17,6 +18,8 @@ const router = Router();
 router.get("/fichas", getFichas);
 
 router.get("/fichas/:id", getFichaById);
+
+router.get("/productos/:id_producto/ficha", getFichaByProductoId);
 
 router.post("/fichas", validateSchema(createFichaSchema), createFicha);
 

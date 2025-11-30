@@ -31,17 +31,18 @@ export async function getDireccionById_get(id_direccion: number): Promise<direcc
   }
 }
 
-// 🔹 Crear dirección
+// 🔹 Crear dirección (incluye id_usuario)
 export async function createDireccion_post(direccion: direccionInterface): Promise<boolean> {
   try {
     await db.connect();
-    const sql = `INSERT INTO direccion (pais, departamento, ciudad, completa)
-                 VALUES (?, ?, ?, ?)`;
+    const sql = `INSERT INTO direccion (pais, departamento, ciudad, completa, id_user)
+                 VALUES (?, ?, ?, ?, ?)`;
     const response: any = await db.query(sql, [
       direccion.pais,
       direccion.departamento,
       direccion.ciudad,
       direccion.completa,
+      direccion.id_user, // 👈 se mapea al campo id_usuario en la BD
     ]);
     db.close();
     return response.affectedRows > 0;
@@ -51,20 +52,21 @@ export async function createDireccion_post(direccion: direccionInterface): Promi
   }
 }
 
-// 🔹 Actualizar dirección
+// 🔹 Actualizar dirección (incluye id_usuario)
 export async function updateDireccion_put(direccion: direccionInterface): Promise<boolean> {
   try {
     if (!direccion.id_direccion) return false;
 
     await db.connect();
     const sql = `UPDATE direccion
-                 SET pais = ?, departamento = ?, ciudad = ?, completa = ?
+                 SET pais = ?, departamento = ?, ciudad = ?, completa = ?, id_user = ?
                  WHERE id_direccion = ?`;
     const response: any = await db.query(sql, [
       direccion.pais,
       direccion.departamento,
       direccion.ciudad,
       direccion.completa,
+      direccion.id_user, // 👈 se mapea al campo id_usuario en la BD
       direccion.id_direccion,
     ]);
     db.close();

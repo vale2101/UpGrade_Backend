@@ -3,6 +3,9 @@ import userRoutes from "./routes/user.routes";
 import direccionRoutes from "./routes/direccion.routes"
 import trabajadorRoutes from "./routes/trabajador.routes"
 import fichaRoutes from "./routes/ficha.routes"
+import productoRoutes from "./routes/producto.routes"
+import pedidoRoutes from "./routes/pedido.routes"
+import administradorRoutes from "./routes/administrador.routes"
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -40,6 +43,10 @@ middlewares() {
     this.app.use('/api', direccionRoutes); 
     this.app.use('/api', trabajadorRoutes); 
     this.app.use('/api', fichaRoutes); 
+    this.app.use('/api', productoRoutes); 
+    this.app.use('/api', pedidoRoutes); 
+    this.app.use('/api', administradorRoutes); 
+
   }
 }
 

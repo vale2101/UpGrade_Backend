@@ -95,7 +95,7 @@ export async function deleteUser_delete(id_user: number): Promise<boolean> {
 }
 
 // 🔹 Obtener usuario con su dirección
-export async function getUserWithDireccion_get(id_user: number): Promise<any | null> {
+export async function getUserWithDireccion_get(id_user: number): Promise<any[] | null> {
   try {
     await db.connect();
     const sql = `
@@ -105,19 +105,19 @@ export async function getUserWithDireccion_get(id_user: number): Promise<any | n
         u.apellido,
         u.correo,
         u.telefono,
-        u.fecha_registro,
         d.id_direccion,
         d.pais,
         d.departamento,
         d.ciudad,
         d.completa
       FROM user u
-      LEFT JOIN direccion d ON u.id_direccion = d.id_direccion
+      LEFT JOIN direccion d ON u.id_user = d.id_user
       WHERE u.id_user = ?
     `;
     const response: any = await db.query(sql, [id_user]);
     db.close();
-    return response.length > 0 ? response[0] : null;
+
+    return response.length > 0 ? response : null; // ✅ devuelve todas las filas
   } catch (error) {
     console.error(error);
     return null;

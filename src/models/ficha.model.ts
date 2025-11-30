@@ -94,3 +94,25 @@ export async function deleteFicha_delete(id_ficha: number): Promise<boolean> {
     return false;
   }
 }
+
+// 🔹 Obtener ficha por ID de producto
+export async function getFichaByProductoId_get(id_producto: number): Promise<any | null> {
+  try {
+    await db.connect();
+    const sql = `
+      SELECT *
+      FROM ficha
+      WHERE id_ficha = (
+        SELECT id_ficha
+        FROM producto
+        WHERE id_producto = ?
+      )
+    `;
+    const response: any = await db.query(sql, [id_producto]);
+    db.close();
+    return response.length > 0 ? response[0] : null;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}

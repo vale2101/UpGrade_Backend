@@ -8,6 +8,7 @@ import {
 import {
   getUsers,
   getUserById,
+  logoutUser,
   createUser,
   updateUser,
   deleteUser,
@@ -18,6 +19,8 @@ import {
 const router = Router();
 
 router.get("/usuarios", getUsers);
+
+router.post("/user/logout", logoutUser); 
 
 router.get("/usuarios/:id", getUserById);
 

@@ -6,6 +6,7 @@ import {
   createFicha_post,
   updateFicha_put,
   deleteFicha_delete,
+  getFichaByProductoId_get, // 🔹 añadimos la nueva función del modelo
 } from "../models/ficha.model";
 
 // 🔹 Obtener todas las fichas
@@ -21,6 +22,18 @@ export async function getFichaById(req: Request, res: Response): Promise<Respons
 
   if (!ficha) {
     return res.status(HttpStatusCode.NotFound).json({ message: "Ficha no encontrada" });
+  }
+
+  return res.status(HttpStatusCode.Ok).json({ data: ficha });
+}
+
+// 🔹 Obtener ficha por ID de producto
+export async function getFichaByProductoId(req: Request, res: Response): Promise<Response> {
+  const { id_producto } = req.params;
+  const ficha = await getFichaByProductoId_get(Number(id_producto));
+
+  if (!ficha) {
+    return res.status(HttpStatusCode.NotFound).json({ message: "Ficha no encontrada para este producto" });
   }
 
   return res.status(HttpStatusCode.Ok).json({ data: ficha });
