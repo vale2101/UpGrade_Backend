@@ -31,7 +31,7 @@ middlewares() {
   this.app.use(express.json());
   // Cors configurado correctamente
   this.app.use(cors({
-    origin: 'https://upgrade-store.shop', 
+    origin: 'https://up-grade-frontend.vercel.app', 
     credentials: true,               
   }));
 
