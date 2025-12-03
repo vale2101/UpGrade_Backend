@@ -31,7 +31,7 @@ middlewares() {
   this.app.use(express.json());
   // Cors configurado correctamente
   this.app.use(cors({
-    origin: 'http://localhost:3001', 
+    origin: 'https://upgrade-store.shop', 
     credentials: true,               
   }));
 
