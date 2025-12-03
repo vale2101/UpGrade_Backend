@@ -41,14 +41,21 @@ export async function getFichaByProductoId(req: Request, res: Response): Promise
 
 // 🔹 Crear ficha
 export async function createFicha(req: Request, res: Response): Promise<Response> {
-  const success = await createFicha_post(req.body);
+  const insertId = await createFicha_post(req.body);
 
-  if (!success) {
+  if (!insertId) {
     return res.status(HttpStatusCode.BadRequest).json({ message: "No se pudo crear la ficha" });
   }
 
-  return res.status(HttpStatusCode.Ok).json({ message: "Ficha creada correctamente" });
+  // Consultamos la ficha recién creada
+  const ficha = await getFichaById_get(insertId);
+
+  return res.status(HttpStatusCode.Ok).json({
+    message: "Ficha creada correctamente",
+    data: ficha,
+  });
 }
+
 
 // 🔹 Actualizar ficha
 export async function updateFicha(req: Request, res: Response): Promise<Response> {

@@ -6,6 +6,7 @@ import fichaRoutes from "./routes/ficha.routes"
 import productoRoutes from "./routes/producto.routes"
 import pedidoRoutes from "./routes/pedido.routes"
 import administradorRoutes from "./routes/administrador.routes"
+import reparacionRoutes from "./routes/reparacion.routes"
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -46,6 +47,7 @@ middlewares() {
     this.app.use('/api', productoRoutes); 
     this.app.use('/api', pedidoRoutes); 
     this.app.use('/api', administradorRoutes); 
+    this.app.use('/api', reparacionRoutes); 
 
   }
 }

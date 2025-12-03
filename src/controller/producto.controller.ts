@@ -6,6 +6,7 @@ import {
   createProducto_post,
   updateProducto_put,
   deleteProducto_delete,
+  updateProductoStock_put,
 } from "../models/producto.model";
 
 // 🔹 Obtener todos los productos
@@ -59,4 +60,32 @@ export async function deleteProducto(req: Request, res: Response): Promise<Respo
   }
 
   return res.status(HttpStatusCode.Ok).json({ message: "Producto eliminado correctamente" });
+}
+
+// 🔹 Actualizar solo el stock
+export async function updateProductoStock(req: Request, res: Response): Promise<Response> {
+  try {
+    const { id } = req.params;
+    const { stock } = req.body;
+
+    if (typeof stock !== "number") {
+      return res.status(HttpStatusCode.BadRequest).json({ message: "El stock debe ser numérico" });
+    }
+
+    const success = await updateProductoStock_put(Number(id), stock);
+
+    if (!success) {
+      return res.status(HttpStatusCode.BadRequest).json({ message: "No se pudo actualizar el stock" });
+    }
+
+    const producto = await getProductoById_get(Number(id));
+
+    return res.status(HttpStatusCode.Ok).json({
+      message: "Stock actualizado correctamente",
+      data: producto,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(HttpStatusCode.InternalServerError).json({ message: "Error al actualizar el stock" });
+  }
 }

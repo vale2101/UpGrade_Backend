@@ -32,7 +32,8 @@ export async function getFichaById_get(id_ficha: number): Promise<fichaInterface
 }
 
 // 🔹 Crear ficha
-export async function createFicha_post(ficha: fichaInterface): Promise<boolean> {
+// 🔹 Crear ficha
+export async function createFicha_post(ficha: fichaInterface): Promise<number | null> {
   try {
     await db.connect();
     const sql = `INSERT INTO ficha (pantalla, procesador, camara, memoria, sistemaO, garantia, estado)
@@ -47,12 +48,13 @@ export async function createFicha_post(ficha: fichaInterface): Promise<boolean> 
       ficha.estado,
     ]);
     db.close();
-    return response.affectedRows > 0;
+    return response.insertId || null; // devolvemos el ID insertado
   } catch (error) {
     console.error(error);
-    return false;
+    return null;
   }
 }
+
 
 // 🔹 Actualizar ficha
 export async function updateFicha_put(ficha: fichaInterface): Promise<boolean> {

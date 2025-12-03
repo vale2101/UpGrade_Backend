@@ -103,3 +103,17 @@ export async function deleteProducto_delete(id_producto: number): Promise<boolea
     return false;
   }
 }
+
+// 🔹 Actualizar solo el stock de un producto
+export async function updateProductoStock_put(id_producto: number, stock: number): Promise<boolean> {
+  try {
+    await db.connect();
+    const sql = "UPDATE producto SET stock = ? WHERE id_producto = ?";
+    const response: any = await db.query(sql, [stock, id_producto]);
+    db.close();
+    return response.affectedRows > 0;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}

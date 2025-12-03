@@ -5,6 +5,7 @@ import {
   createProducto,
   updateProducto,
   deleteProducto,
+  updateProductoStock,
 } from "../controller/producto.controller";
 import {
   createProductoSchema,
@@ -28,5 +29,7 @@ router.put("/productos/:id", validateSchema(updateProductoSchema), updateProduct
 
 // 🔹 Eliminar producto
 router.delete("/productos/:id", deleteProducto);
+
+router.put("/productos/:id/stock", updateProductoStock);
 
 export default router;
